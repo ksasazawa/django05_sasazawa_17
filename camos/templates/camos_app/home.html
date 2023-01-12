@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMOS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+    {% load static %}
+    <nav class="navbar has-background-grey" style="display: flex; justify-content:space-between; align-items: center;">
+            <div class="navbar-brand">
+            <a href="/" class="navbar-item is-size-4" style="color: white; font-weight: bold;">CAMOS</a>
+            </div>
+    </nav>
+    
+    <h1 class="title">ホーム</h1>
+
+    <div style="display: flex; justify-content: space-around;">
+        <div>
+            <div class="title has-text-centered">
+                <p>建設会社様</p>
+            </div>
+            <img src="{% static 'camos_app/img/派遣先.png' %}" alt="" style="width: 400px;">
+            <div class="has-text-centered">
+                <a href="{% url 'camos_app:client_login' %}"><button class="button is-warning is-rounded is-large is-hovered" style="margin: 50px;">ログイン</button></a>
+            </div>
+        </div>
+        <div>
+            <div class="title has-text-centered">
+                <p>派遣会社様</p>
+            </div>
+            <img src="{% static 'camos_app/img/派遣会社.png' %}" alt="" style="width: 400px;">
+            <div class="has-text-centered">
+                <a href="{% url 'camos_app:supplier_login' %}"><button class="button is-primary is-rounded is-large is-hovered" style="margin: 50px;">ログイン</button></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% extends "camos_app/supplier_base.html" %}
+{% block content %}
+
+<h2 class="title">{{post.title}}</h2>
+<hr />
+<div style="margin-bottom: 30px;">
+    <p class="is-size-4">企業名</p>
+    <p>{{post.create_user_company}}</p>
+</div>
+<div style="margin-bottom: 30px;">
+    <p class="is-size-4">業務内容</p>
+    <p>{{post.job}}</p>
+</div>
+<div style="margin-bottom: 30px;">
+    <p class="is-size-4">要求資格</p>
+    <p id="qualification">{{post.qualification}}</p>
+</div>
+<div style="margin-bottom: 30px;">
+    <p class="is-size-4">勤務地</p>
+    <p>{{post.location}}</p>
+</div>
+<div style="margin-bottom: 30px;">
+    <p class="is-size-4">希望単価</p>
+    <p>{{post.price}}</p>
+</div>
+<div style="margin-bottom: 30px;">
+    <p class="is-size-4">備考</p>
+    <p>{{post.body}}</p>
+</div>
+<small>Posted at {{post.data_added}}</small>
+
+<script>
+    document.querySelector("#qualification").innerHTML = document.querySelector("#qualification").innerHTML.replace("[", "").replace("]", "");
+</script>
+
+<div class="has-text-centered">
+    <a href="{% url 'camos_app:supplier_person_create' post.id %}"><button class="button is-danger is-rounded is-large is-hovered">提案する</button></a>
+</div>
+{% endblock %}

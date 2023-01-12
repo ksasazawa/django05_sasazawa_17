@@ -1,0 +1,49 @@
+{% extends "camos_app/client_base.html" %}
+{% block content %}
+{% load widget_tweaks %}
+
+<h1 class="title">求人作成</h1>
+<br>
+
+<div class="has-text-centered">
+    <form method="post">
+        {% csrf_token %}
+        <div class="title">
+            <p class="is-size-4" style="margin-bottom: 20px;">求人タイトル</p>
+            {{ form.title | add_class:"input is-primary"}}
+        </div>
+        <div class="title">
+            <p class="is-size-4" style="margin-bottom: 20px;">業務内容</p>
+            {{ form.job | add_class:"input is-primary"}}
+        </div>
+        <div class="title" style="padding: 0px 300px;">
+            <p class="is-size-4" style="margin-bottom: 20px;">要求資格</p>
+            {{form.qualification | add_class:"is-size-4 has-text-left"}}
+        </div>
+        <div class="title">
+            <p class="is-size-4" style="margin-bottom: 20px;">勤務地</p>
+            {{ form.location | add_class:"input is-primary"}}
+        </div>
+        <div class="title">
+            <p class="is-size-4" style="margin-bottom: 20px;">希望単価</p>
+            {{ form.price | add_class:"input is-primary"}}
+        </div>
+        <div class="title">
+            <p class="is-size-4" style="margin-bottom: 20px;">備考</p>
+            {{ form.body | add_class:"textarea is-primary"}}
+        </div>
+        <div class="title" style="padding: 0px 300px;">
+            <p class="is-size-4" style="margin-bottom: 20px;">派遣会社</p>
+            {{ form.agent | add_class:"is-size-4 has-text-left"}}
+        </div>
+        <div hidden>
+            <input type="text" name="create_user" maxlength="50" class="input is-primary" required="" id="id_create_user" value={{request.user.id}}>
+        </div>
+        <div hidden>
+            <input type="text" name="create_user_company" maxlength="50" class="input is-primary" required="" id="id_create_user_company" value={{request.user.company_name}}>
+        </div>
+        <button class="button is-danger is-rounded is-large is-hovered" style="margin: 50px;">保存</button>
+    </form>
+</div>
+
+{% endblock %}

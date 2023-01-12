@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMOS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+
+
+    <nav class="navbar is-primary" style="display: flex; justify-content:space-between; align-items: center;">
+        <div class="navbar-brand">
+        <a id="back" href="{% url 'camos_app:client_home' %}" class="navbar-item">
+            <strong>CAMOS</strong>
+        </a>
+        </div>
+        <div style="margin-right: 10px; padding: 5px 30px; background-color: #99FFFF; color: black; border-radius: 10px;">
+            {% if request.user.is_authenticated %}
+            <div>{{request.user}} / <a href="{% url 'camos_app:user_logout' %}">ログアウト</a></div>
+            {% else %}
+            <a href="{% url 'supplier_login' %}">ログイン</a>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="columns">
+        <div class="submenu column is-3" style="height: 1000px;">
+            <aside class="notification is-info is-light">
+            <div class="mb-2">
+                <span class="tag is-danger">News</span>
+            </div>
+            <div>
+                本日は{{post_cnt}}件の求人依頼がありました！
+            </div>
+            </aside>
+            <aside class="box menu" style="height: 100%;">
+            <ul class="menu-list">
+                <li class="is-size-5"><a href="{% url 'camos_app:supplier_home' %}"><span class="material-symbols-outlined">home</span>　ホーム</a></li>
+                <li class="is-size-5"><a href="{% url 'camos_app:supplier_job_list' %}"><span class="material-symbols-outlined">quick_reference</span>　獲得求人一覧</a></li>
+                <li class="is-size-5"><a href="{% url 'camos_app:supplier_worker_list' %}"><span class="material-symbols-outlined">group</span>　提案人材一覧</a></li>
+                <li class="is-size-5"><a href="{% url 'camos_app:supplier_settings' %}"><span class="material-symbols-outlined">settings</span>　設定</a></li>
+            </ul>
+            </aside>
+        </div>
+        
+        <section class="section column">
+            <div>{% block content %} {% endblock %}</div>
+        </section>
+</div>
+</body>
+</html>

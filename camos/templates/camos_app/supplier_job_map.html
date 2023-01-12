@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>BingMaps GO! : Geocode Example</title>
+    <style>html,body,#main{height:100%;}body{padding:0;margin:0;background:#333;}h1{padding:0;margin:0;font-size:100%;color:white;}p{margin:0}</style>
+</head>
+<body>
+
+<!-- MAP[START] -->
+<header>
+    <h1 id="h1">BingMaps GO! (住所検索 → 緯度経度取得）</h1>
+</header>
+<div id="main">
+    <div id="myMap" style='width:100%;height:90%;'></div>
+</div>
+<!-- MAP[END] -->
+
+<!-- ここにAPIキーを記載！ -->
+
+    <script>
+        /**
+         * BingMapsControllerを読み込んだらGetMap()を実行
+         * @constructor
+         */
+        let map;             //MapObject用
+        let searchManager;   //SearchObject用
+        function GetMap() {
+            //Map生成
+            map = new Microsoft.Maps.Map('#myMap', {
+                zoom: 8,
+                mapTypeId: Microsoft.Maps.MapTypeId.aerial
+            });
+            //検索モジュール指定
+            Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
+                //searchManagerインスタンス化（Geocode,ReverseGeocodeが使用可能になる）
+                searchManager = new Microsoft.Maps.Search.SearchManager(map);
+                //Geocode：住所から検索
+                const query = [];
+                "{% for post in posts %}"
+                query.push("{{post.location}}");
+                "{% endfor %}"
+                geocodeQuery(query);
+            });
+        }
+    
+        /**
+         * 住所から緯度経度を取得
+         * @param query [住所文字列]
+         */
+        function geocodeQuery(query) {
+            if(searchManager) {
+                console.log(`住所は、${query}`);
+                for (const elem of query) {
+                    //住所から緯度経度を検索
+                    searchManager.geocode({
+                        where: elem,       //検索文字列
+                        callback: function (r) { //検索結果を"( r )" の変数で取得
+                            //最初の検索取得結果をMAPに表示
+                            if (r && r.results && r.results.length > 0) {
+                                //Pushpinを立てる
+                                const pin = new Microsoft.Maps.Pushpin(r.results[0].location);
+                                map.entities.push(pin);
+                                //map表示位置を再設定
+                                // map.setView({ bounds: r.results[0].bestView});
+                                //取得た緯度経度をh1要素にJSON文字列にして表示
+                                console.log(r.results[0].location);
+                                document.getElementById("h1").innerText = JSON.stringify(r.results[0].location);
+                            }
+                        },
+                        errorCallback: function (e) {
+                            alert("見つかりません");
+                    }
+                });
+                }
+            }
+        }
+    
+    </script>
+
+
+</body>
+</html>

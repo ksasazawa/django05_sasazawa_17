@@ -1,0 +1,30 @@
+{% extends "camos_app/client_base.html" %}
+{% block content %}
+
+<h1 class="title">人材一覧</h1>
+<hr />
+
+<table class="table is-fullwidth is-striped">
+    <tr>
+        <th>名前</th>
+        <th>年齢</th>
+        <th>性別</th>
+        <th>資格</th>
+        <th>提案企業</th>
+        <th>詳細</th>
+    </tr>
+    {% for person in people %}
+    <tr>
+        <td>{{person.name}}</td>
+        <td>{{person.age}}</td>
+        <td>{{person.sex}}</td>
+        <td>{{person.qualification}}</td>
+        <td>{{person.create_user_company}}</td>
+        <td><a href="{% url 'camos_app:client_worker_detail' person.id %}">詳細へ</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+{% endblock %}

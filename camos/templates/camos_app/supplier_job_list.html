@@ -1,0 +1,27 @@
+{% extends "camos_app/supplier_base.html" %}
+{% block content %}
+
+<div class="columns is-multiline">
+    <div class="column has-text-left">
+        <h1 class="title">求人一覧</h1>
+    </div>
+    <div class="column has-text-right">
+        <a href="{% url 'camos_app:supplier_job_map' %}"><h1 class="title"><span class="material-symbols-outlined">map</span></h1></a>
+    </div>
+</div>
+<hr />
+
+<div class="columns is-multiline">
+{% for post in posts %}
+<div class="column is-centered is-one-quarter">
+    <h2 class="subtitle">{{post.title}}</h2>
+    <p>{{post.job}}</p>
+    <small>Posted at {{post.data_added}}</small>
+    <small>{{post.create_user}}</small>
+    <br>
+    <a href="{% url 'camos_app:supplier_job_detail' post.id %}">もっと読む</a>
+</div>
+{% endfor %}
+</div>
+
+{% endblock %}

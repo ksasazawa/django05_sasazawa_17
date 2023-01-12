@@ -1,0 +1,23 @@
+{% extends "camos_app/client_base.html" %}
+{% block content %}
+
+<h1 class="title">ホーム</h1>
+<hr />
+
+
+<div style="display: flex; justify-content: space-around;">
+    <div>
+        <div class="title has-text-centered">
+            <p>依頼求人数</p>
+            <h2 class="is-size-3">{{ post_cnt }}件</h2>
+        </div>
+    </div>
+    <div>
+        <div class="title has-text-centered">
+            <p>提案人材数</p>
+            <h2 class="is-size-3">{{ person_cnt }}件</h2>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

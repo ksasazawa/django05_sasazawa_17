@@ -1,0 +1,31 @@
+{% extends "camos_app/supplier_base.html" %}
+{% block content %}
+{% load widget_tweaks %}
+
+<h1 class="title">設定</h1>
+<hr />
+
+<div class="has-text-centered">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="title">
+            <p class="is-size-6" style="margin-bottom: 20px;">ユーザ名</p>
+            {{ form.username | add_class:"input is-primary"}}
+        </div>
+        <div class="title">
+            <p class="is-size-6" style="margin-bottom: 20px;">会社名</p>
+            {{ form.company_name | add_class:"input is-primary"}}
+        </div>
+        <div class="title">
+            <p class="is-size-6" style="margin-bottom: 20px;">資本金</p>
+            {{ form.capital | add_class:"input is-primary"}}
+        </div>
+        <div class="title">
+            <p class="is-size-6" style="margin-bottom: 20px;">WEBサイト</p>
+            {{ form.website | add_class:"input is-primary"}}
+        </div>
+        <button class="button is-danger is-rounded is-large is-hovered" style="margin: 50px;">更新</button>
+    </form>
+</div>
+
+{% endblock %}

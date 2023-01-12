@@ -1,0 +1,54 @@
+{% extends "camos_app/client_base.html" %}
+{% block content %}
+{% load widget_tweaks %}
+
+<h1 class="title">人材詳細</h1>
+<hr />
+
+<h2 class="title">{{person.name}}</h2>
+<hr />
+<div style="margin-bottom: 30px;">
+    <p class="is-size-4">年齢</p>
+    <p>{{person.age}}</p>
+</div>
+<div style="margin-bottom: 30px;">
+    <p class="is-size-4">性別</p>
+    <p>{{person.sex}}</p>
+</div>
+<div style="margin-bottom: 30px;">
+    <p class="is-size-4">保有資格</p>
+    <p id="qualification">{{person.qualification}}</p>
+</div>
+<div style="margin-bottom: 30px;">
+    <p class="is-size-4">提案企業</p>
+    <p>{{person.create_user_company}}</p>
+</div>
+<div style="margin-bottom: 30px;">
+    <p class="is-size-4">工事経験１</p>
+    <p>{{person.construction1}}</p>
+</div>
+<div style="margin-bottom: 30px;">
+    <p class="is-size-4">工事経験２</p>
+    <p>{{person.construction2}}</p>
+</div>
+<div style="margin-bottom: 30px;">
+    <p class="is-size-4">工事経験３</p>
+    <p>{{person.construction3}}</p>
+</div>
+
+<div class="has-text-centered">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% comment %}
+        {{ form.result | add_class:"has-text-centered input is-primary"}}
+        {% endcomment %}
+        <button class="button is-danger is-rounded is-large is-hovered" style="margin: 50px;">送信</button>
+    </form>
+</div>
+
+<script>
+    document.querySelector("#qualification").innerHTML = document.querySelector("#qualification").innerHTML.replace("[", "").replace("]", "");
+</script>
+
+{% endblock %}

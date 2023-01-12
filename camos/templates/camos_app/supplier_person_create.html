@@ -1,0 +1,49 @@
+{% extends "camos_app/supplier_base.html" %}
+{% block content %}
+{% load widget_tweaks %}
+
+<h1 class="title">人材提案</h1>
+<hr />
+
+<div class="has-text-centered">
+    <form method="post">
+        {% csrf_token %}
+        <div class="title">
+            <p class="is-size-4" style="margin-bottom: 20px;">名前</p>
+            {{ form.name | add_class:"input is-primary"}}
+        </div>
+        <div class="title">
+            <p class="is-size-4" style="margin-bottom: 20px;">年齢</p>
+            {{ form.age | add_class:"input is-primary"}}
+        </div>
+        <div class="title" style="padding: 0px 300px;">
+            <p class="is-size-4" style="margin-bottom: 20px;">性別</p>
+            {{form.sex | add_class:"input is-primary"}}
+        </div>
+        <div class="title" style="padding: 0px 300px;">
+            <p class="is-size-4" style="margin-bottom: 20px;">資格</p>
+            {{form.qualification | add_class:"is-size-4 has-text-left"}}
+        </div>
+        {% comment %}
+        <div class="title">
+            <p class="is-size-4" style="margin-bottom: 20px;">経験</p>
+            {{ form.experience}}
+        </div>
+        {% endcomment %}
+        <div class="title">
+            <p class="is-size-4" style="margin-bottom: 20px;">工事経験１</p>
+            {{ form.construction1 | add_class:"textarea is-primary"}}
+        </div>
+        <div class="title">
+            <p class="is-size-4" style="margin-bottom: 20px;">工事経験２</p>
+            {{ form.construction2 | add_class:"textarea is-primary"}}
+        </div>
+        <div class="title">
+            <p class="is-size-4" style="margin-bottom: 20px;">工事経験３</p>
+            {{ form.construction3 | add_class:"textarea is-primary"}}
+        </div>
+        <button class="button is-danger is-rounded is-large is-hovered" style="margin: 50px;">保存</button>
+    </form>
+</div>
+
+{% endblock %}

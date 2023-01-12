@@ -1,0 +1,35 @@
+{% extends "camos_app/client_base.html" %}
+{% block content %}
+
+<h1 class="title">求人一覧</h1>
+<br>
+<div class="columns is-multiline">
+    
+    {% for post in posts %}
+    {% if post.create_user == request.user %}
+    <div class="column is-centered is-one-quarter">
+        <h2 class="subtitle">{{post.title}}</h2>
+        <p>{{post.job}}</p>
+        <small>Posted at {{post.data_added}}</small>
+        <small>{{post.create_user}}</small>
+        <br>
+        <a href="{% url 'camos_app:client_job_detail' post.id %}">もっと読む</a>
+    </div>
+    {% endif %}
+    {% endfor %}
+    
+</div>
+
+<div class="has-text-centered">
+    <a href={% url 'camos_app:client_job_create' %}><button class="button is-danger is-rounded is-large is-hovered" style="margin: 50px;">新規作成</button></a>
+</div>
+{% comment %}
+<div class="has-text-centered">
+    <form action="{% url 'post_create' %}" method="post">
+        {% csrf_token %}
+        <button class="button is-danger is-rounded is-large is-hovered">新規</button>
+    </form>
+</div>
+{% endcomment %}
+
+{% endblock %}

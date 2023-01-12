@@ -1,0 +1,35 @@
+{% extends "camos_app/supplier_base.html" %}
+{% block content %}
+{% load widget_tweaks %}
+
+<h1 class="title">提案人材一覧</h1>
+<hr />
+
+<table class="table is-fullwidth is-striped">
+    <tr>
+        <th>名前</th>
+        <th>年齢</th>
+        <th>性別</th>
+        <th>資格</th>
+        <th>工事経験１</th>
+        <th>工事経験２</th>
+        <th>工事経験３</th>
+        <th>依頼企業</th>
+        <th>オファー</th>
+    </tr>
+    {% for person in people %}
+    <tr>
+        <td>{{person.name}}</td>
+        <td>{{person.age}}</td>
+        <td>{{person.sex}}</td>
+        <td>{{person.qualification}}</td>
+        <td>{{person.construction1}}</td>
+        <td>{{person.construction2}}</td>
+        <td>{{person.construction3}}</td>
+        <td>{{person.job.create_user_company}}</td>
+        <td>{{person.result}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
