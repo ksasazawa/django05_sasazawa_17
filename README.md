@@ -12,6 +12,11 @@ bingmapAPIで求人をマップにピン刺しした。
 - djangoのフォームがis_valid()=Falseになるときに、なぜそのエラーが出るのかの解明が厄介だった。
 
 ## ④質問・疑問・感想、シェアしたいtips等なんでも
+- ホットリロードでコードがリアルタイムに反映できるようになった。
+実行時はターミナルを二つ立ち上げて、一つはpython manage.py livereload、もう一つはpython manage.py runserver
+https://github.com/tjwalch/django-livereload-server
+- ログインのデザイン（codepen）
+https://codepen.io/colorlib/pen/rxddKy
 - bingmapで住所からピン刺し
 https://qiita.com/daisu_yamazaki/items/7281736f0a77cf8ab664
 - ログインしていない状態だとページを見れなくする方法

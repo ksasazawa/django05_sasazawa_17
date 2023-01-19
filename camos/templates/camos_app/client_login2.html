@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAMOS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'camos_app/css/login.css' %}">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body>
+    <nav class="navbar is-warning" style="display: flex; justify-content:space-between; align-items: center;">
+            <div class="navbar-brand">
+            <a href="{% url 'camos_app:home' %}" class="navbar-item is-size-4" style="color: white; font-weight: bold;">CAMOS</a>
+            </div>
+    </nav>
+
+    <div class="login-page">
+        <div class="form">
+        {% comment %}
+          <form class="register-form">
+            <input type="text" placeholder="name"/>
+            <input type="password" placeholder="password"/>
+            <input type="text" placeholder="email address"/>
+            <button>create</button>
+            <p class="message">Already registered? <a href="#">Sign In</a></p>
+          </form>
+        {% endcomment %}
+          <form class="login-form" method="post">
+            {% csrf_token %}
+            {{ login_form.email }}
+            {{ login_form.password }}
+            <button>login</button>
+            <p class="message">Not registered? <a href="{% url 'camos_app:client_regist2' %}">Create an account</a></p>
+          </form>
+        {% if messages %}
+        {% for message in messages %}
+        <div>{{ message.message }}</div>
+        {% endfor %}
+        {% endif %}
+        </div>
+      </div>
+    
+    {% comment %}
+    <h1 class="title">ログイン</h1>
+    {% if messages %}
+        {% for message in messages %}
+        <div>{{ message.message }}</div>
+        {% endfor %}
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ login_form.as_p }}
+        <input type="submit" value="ログイン">
+    </form>
+    <a href="{% url 'camos_app:client_regist' %}">新規登録はこちら</a>
+    {% endcomment %}
+</body>
+</html>

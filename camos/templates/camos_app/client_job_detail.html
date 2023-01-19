@@ -26,6 +26,10 @@
 <small>Posted at {{post.data_added}}</small>
 <small>{{post.create_user}}</small>
 
+<div class="has-text-centered">
+    <a href={% url 'camos_app:client_job_edit' post.id %}><button class="button is-danger is-rounded is-large is-hovered" style="margin: 50px;">編集</button></a>
+</div>
+
 <script>
     document.querySelector("#qualification").innerHTML = document.querySelector("#qualification").innerHTML.replace("[", "").replace("]", "");
 </script>

@@ -31,6 +31,24 @@ def client_login(request):
     return render(request, 'camos_app/client_login.html', context={
         'login_form':login_form
     })
+    
+def client_login2(request):
+    login_form = forms.ClientLoginForm(request.POST or None)
+    if login_form.is_valid():
+        email = login_form.cleaned_data.get('email')
+        password = login_form.cleaned_data.get('password')
+        user = authenticate(email=email, password=password)
+        if user:
+            if user.is_active and user.user_type == 'client':
+                login(request, user)
+                return redirect("camos_app:client_home")
+            else:
+                messages.warning(request, "ユーザかパスワードが間違っています")
+        else:
+            messages.warning(request, "ユーザかパスワードが間違っています")
+    return render(request, 'camos_app/client_login2.html', context={
+        'login_form':login_form
+    })
 
 def supplier_login(request):
     login_form = forms.SupplierLoginForm(request.POST or None)
@@ -49,6 +67,24 @@ def supplier_login(request):
     return render(request, 'camos_app/supplier_login.html', context={
         'login_form':login_form
     })
+    
+def supplier_login2(request):
+    login_form = forms.SupplierLoginForm(request.POST or None)
+    if login_form.is_valid():
+        email = login_form.cleaned_data.get('email')
+        password = login_form.cleaned_data.get('password')
+        user = authenticate(email=email, password=password)
+        if user:
+            if user.is_active and user.user_type == 'supplier':
+                login(request, user)
+                return redirect("camos_app:supplier_home")
+            else:
+                messages.warning(request, "ユーザかパスワードが間違っています")
+        else:
+            messages.warning(request, "ユーザかパスワードが間違っています")
+    return render(request, 'camos_app/supplier_login2.html', context={
+        'login_form':login_form
+    })
 
 def client_regist(request):
     add_form = forms.ClientCreationForm()
@@ -58,6 +94,17 @@ def client_regist(request):
             add_form.save()
             return redirect("camos_app:client_login")
     return render(request, 'camos_app/client_regist.html', context = {
+        'add_form': add_form
+    })
+    
+def client_regist2(request):
+    add_form = forms.ClientCreationForm()
+    if request.method == 'POST':
+        add_form = forms.ClientCreationForm(request.POST)
+        if add_form.is_valid():
+            add_form.save()
+            return redirect("camos_app:client_login2")
+    return render(request, 'camos_app/client_regist2.html', context = {
         'add_form': add_form
     })
 
@@ -70,6 +117,18 @@ def supplier_regist(request):
     else:
         add_form = forms.SupplierCreationForm()
     return render(request, 'camos_app/supplier_regist.html', context = {
+        'add_form': add_form
+    })
+    
+def supplier_regist2(request):
+    if request.method == 'POST':
+        add_form = forms.SupplierCreationForm(request.POST, request.FILES)
+        if add_form.is_valid():
+            add_form.save()
+            return redirect("camos_app:supplier_login2")
+    else:
+        add_form = forms.SupplierCreationForm()
+    return render(request, 'camos_app/supplier_regist2.html', context = {
         'add_form': add_form
     })
 
@@ -128,6 +187,30 @@ def client_job_detail(request, id):
     return render(request, "camos_app/client_job_detail.html", context = {
         "post": post,
         "person_cnt": person_cnt,
+    })
+    
+@login_required
+def client_job_edit(request, id):
+    people_all = Person.objects.all()
+    person_cnt = 0
+    for person in people_all:
+        if person.job.create_user == request.user:
+            person_cnt += 1
+    post = Post.objects.get(id=id)
+    form = forms.PostForm(initial={
+        'title': post.title,
+        'job': post.job,
+        'qualification': post.qualification,
+        'location': post.location,
+        'body': post.body,
+        'price': post.agent,
+        'create_user': post.create_user,
+        'create_user_company': post.create_user_company,  
+    })
+    return render(request, "camos_app/client_job_edit.html", context = {
+        "post": post,
+        "person_cnt": person_cnt,
+        "form": form,
     })
 
 @login_required
